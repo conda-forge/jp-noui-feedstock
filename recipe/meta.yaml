@@ -5,11 +5,11 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/j/jp_noui/jp_noui-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/j/jp_noui/jp_noui-{{ version }}.tar.gz
   sha256: ba9fb29c8a03b7148ce03b3b580e7dae20073f42ff21ffc65bd32a92d5dc7246
 
 build:
-  number: 0
+  number: 1
   noarch: python
   script: {{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv
   entry_points:
@@ -20,10 +20,10 @@ requirements:
     - hatch-jupyter-builder
     - jupyterlab >=3,<4
     - pip
-    - python >=3.7
+    - python {{ python_min }}
 
   run:
-    - python >=3.7
+    - python >={{ python_min }}
 
   run_constrained:
     - jupyterlab >=3,<4
@@ -33,6 +33,7 @@ test:
     - pip
     - jupyterlab >=3,<4
     - m2-grep  # [win]
+    - python {{ python_min }}
   imports:
     - jp_noui
   commands:
